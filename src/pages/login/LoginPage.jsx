@@ -26,7 +26,7 @@ const LoginPage = () => {
       const loginResult = await dispatch(authenticateLoginAsync(userLogin))
       console.log(loginResult)
       if (loginResult.success) {
-        alert(loginResult.message)
+        navigate('/profile')
       } else {
         alert(loginResult.message)
       }
@@ -69,9 +69,9 @@ const LoginPage = () => {
             <button className="btn text-register">Register now?</button>
             <button className="btn btn-purple btn-custom" type='submit'>Login</button>
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <button className="btn btn-primary btn-custom my-3"><i className="fa-brands fa-facebook p-3"></i>Continue with Facebook</button>
-          </div>
+          </div> */}
         </form>
       </div>
     </LoginPageStyled>

@@ -25,7 +25,7 @@ const ProfilePage = () => {
         }),
         onSubmit: async (userLogin) => {
             const loginResult = await dispatch(authenticateLoginAsync(userLogin))
-            console.log(loginResult)
+            // console.log(loginResult)
             if (loginResult.success) {
                 alert(loginResult.message)
             } else {
