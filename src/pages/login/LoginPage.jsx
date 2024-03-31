@@ -26,7 +26,7 @@ const LoginPage = () => {
       const loginResult = await dispatch(authenticateLoginAsync(userLogin))
       console.log(loginResult)
       if (loginResult.success) {
-        navigate('/profile')
+        alert(loginResult.message)
       } else {
         alert(loginResult.message)
       }
