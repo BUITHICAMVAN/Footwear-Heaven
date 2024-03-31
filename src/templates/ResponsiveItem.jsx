@@ -11,8 +11,6 @@ export const ResponsiveItem = (props) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [component, setComponent] = useState(props.component)
 
-    // console.log(screenWidth)
-
     // Xoay ngang hoac xoay doc
     const changeScreen = () => {
         const newScreenWidth = window.innerWidth;
@@ -21,6 +19,8 @@ export const ResponsiveItem = (props) => {
         } else {
             setComponent(props.component)
         }
+    // console.log(screenWidth)
+
     }
 
     // Goi lai moi khi screenWidth thay doi

@@ -9,6 +9,9 @@ import HomeTemplate from './templates/HomeTemplate';
 import { ResponsiveItem } from './templates/ResponsiveItem';
 import HomePage from './pages/home/HomePage';
 import HomeResponsivePage from './pages/home/HomeResponsivePage';
+import LoginPage from './pages/login/LoginPage';
+import RegisterPage from './pages/register/RegisterPage';
+import ProfilePage from './pages/profile/ProfilePage';
 
 export const history = createBrowserHistory()
 
@@ -19,6 +22,9 @@ root.render(
       <Routes>
         <Route path='' element={<HomeTemplate />}>
           <Route element={<ResponsiveItem component={<HomePage />} mobileComponent={<HomeResponsivePage />} />} index></Route>
+          <Route path="login" element={<LoginPage/>}></Route>
+          <Route path="register" element={<RegisterPage/>}></Route>
+          <Route path='profile' element={<ProfilePage/>}></Route>
         </Route>
       </Routes>
     </Provider>
