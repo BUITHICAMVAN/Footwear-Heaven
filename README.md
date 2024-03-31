@@ -6,3 +6,4 @@ Installed:
 - Ho tro chuyen huong trang: npm i history
 - Check thoi gian het han cua token: npm i jwt-decode
 - Lay du lieu tu form, yup: validation: npm i formik yup 
+- Styled components
