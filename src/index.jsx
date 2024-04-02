@@ -16,6 +16,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import Details from './pages/details/Details';
 import Cart from './pages/cart/Cart';
 import PurchasePage from './pages/purchase/PurchasePage';
+import SearchPage from "./pages/search/SearchPage";
 
 export const history = createBrowserHistory();
 

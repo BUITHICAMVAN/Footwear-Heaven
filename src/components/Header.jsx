@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Search from "../pages/search/Search";
+
 const Header = () => {
   const { arrProductCart } = useSelector((state) => state.productCartReducer);
   if (arrProductCart) console.log(arrProductCart);
+
   const navigate = useNavigate()
 
     // Authentication functions
@@ -99,3 +101,5 @@ const Header = () => {
     </nav>
   );
 };
+
+export default Header
