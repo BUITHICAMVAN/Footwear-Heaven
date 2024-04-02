@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   const { product } = useSelector((state) => state.productReducer);
   if (product) console.log(product);
+  
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-custom-navbar">
       <div className="container">

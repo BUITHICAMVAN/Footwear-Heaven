@@ -1,16 +1,17 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { authenticateLoginAsync } from '../../redux/reducers/loginReducer';
 import avatar from '../../assets/avatar.jpg'
 import OrderHistory from '../../components/orderHistory/OrderHistory';
 import Favourite from '../../components/favourite/Favourite';
+import { getUserProfileAsync } from '../../redux/reducers/userReducer';
 
 const ProfilePage = () => {
     const [showPassword, setShowPassword] = useState(false)
-
+    const infoUser = useSelector(state => state.userReducer)
     const dispatch = useDispatch()
 
     const formLogin = useFormik({
@@ -19,13 +20,11 @@ const ProfilePage = () => {
             password: ''
         },
         validationSchema: yup.object().shape({
-            email: yup.string().required('Email cannot be blank').email('Email is invalid').matches(/.*.*/, 'Thiếu cybersoft'),
-            password: yup.string().required('Password cannot be blank').max(32, 'Loi max'),
+            password: yup.string().required('Password cannot be blank').max(32, 'Reach maximum'),
             phone: yup.string().matches(/^[0-9]{10}$/, 'Phone number must be 10 digits'),
         }),
         onSubmit: async (userLogin) => {
             const loginResult = await dispatch(authenticateLoginAsync(userLogin))
-            // console.log(loginResult)
             if (loginResult.success) {
                 alert(loginResult.message)
             } else {
@@ -33,6 +32,15 @@ const ProfilePage = () => {
             }
         }
     });
+
+    const getUserProfile = async () => {
+        const actionThunk = getUserProfileAsync()
+        dispatch(actionThunk)
+    }
+
+    useEffect(() => {
+        getUserProfile()
+    }, [])
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -50,25 +58,26 @@ const ProfilePage = () => {
                         <form className="profile-form" onSubmit={formLogin.handleSubmit}>
                             <div className="form-group">
                                 <p>Email</p>
-                                <input type="text" className="form-control" id="email" name="email" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} /> {formLogin.errors.email && <p className='text text-danger'>{formLogin.errors.email}</p>}
+                                <input type="text" className="form-control" id="email" name="email" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} value={infoUser.email} disabled /> 
                             </div>
                             <div className="form-group">
                                 <p>Name</p>
-                                <input type="text" className="form-control" id="name" name="name" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} />
+                                <input type="text" className="form-control" id="name" name="name" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} value={infoUser.name}/>
                             </div>
                             <div className="form-group">
                                 <p>Phone</p>
-                                <input type="text" className="form-control" id="phone" name="phone" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} /> {formLogin.errors.phone && <p className='text text-danger'>{formLogin.errors.phone}</p>}
+                                <input type="text" className="form-control" id="phone" name="phone" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} value={infoUser.phone}/> 
+                                {formLogin.errors.phone && <p className='text text-danger'>{formLogin.errors.phone}</p>}
                             </div>
                             <div className="form-group">
                                 <p>Password</p>
                                 <div className="input-group d-flex align-items-center">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
-                                        className="form-control mx-3"
+                                        className="form-control"
                                         id="password"
                                         name="password"
-                                        value={formLogin.values.password}
+                                        value={infoUser.password}
                                         onChange={formLogin.handleChange}
                                         onBlur={formLogin.handleBlur}
                                     />
@@ -82,13 +91,13 @@ const ProfilePage = () => {
                                 <div>
                                     <p>Gender</p>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="gender" id="femail" defaultChecked />
+                                        <input className="form-check-input" type="radio" name="gender" id="femail" />
                                         <label className="form-check-label" htmlFor="femail">
                                             Female
                                         </label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="male" />
+                                        <input className="form-check-input" type="radio" name="gender" id="male" />
                                         <label className="form-check-label" htmlFor="male">
                                             Male
                                         </label>
@@ -96,7 +105,7 @@ const ProfilePage = () => {
                                 </div>
                             </div>
                             <div className="form-group mt-2">
-                                <button className="btn btn-purple btn-custom" type='submit'>Login</button>
+                                <button className="btn btn-purple btn-custom" type='submit'>Update</button>
                             </div>
                         </form>
                     </div>
@@ -129,6 +138,9 @@ const ProfilePage = () => {
 export default ProfilePage
 
 const ProfilePageStyled = styled.div`
+    h3 {
+        margin: 0;
+    }
     input {
         max-width: 600px;
     }

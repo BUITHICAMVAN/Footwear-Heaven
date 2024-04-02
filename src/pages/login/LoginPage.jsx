@@ -42,28 +42,28 @@ const LoginPage = () => {
       <div className="container">
         <h3>Login</h3>
         <hr />
-        <form className="d-flex flex-column justify-content-center" onSubmit={formLogin.handleSubmit}>
+        <form className="d-flex flex-column" onSubmit={formLogin.handleSubmit}>
           <div className="form-group">
             <p>Email</p>
-            <input type="text" className="form-control" id="email" name="email" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} /> {formLogin.errors.email && <p className='text text-danger'>{formLogin.errors.email}</p>}
+            <input className="form-control" id="email" name="email" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} /> 
+            {formLogin.errors.email && <p className='text text-danger'>{formLogin.errors.email}</p>}
           </div>
           <div className="form-group">
             <p>Password</p>
             <div className="input-group d-flex align-items-center">
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="form-control mx-3"
+                className="form-control"
                 id="password"
                 name="password"
-                value={formLogin.values.password}
                 onChange={formLogin.handleChange}
                 onBlur={formLogin.handleBlur}
               />
               <label className="password-toggle-btn" onClick={togglePasswordVisibility}>
                 {showPassword ? <i className="fa-regular fa-eye"></i> : <i className="fa-regular fa-eye-slash"></i>}
               </label>
-              {formLogin.errors.password && <p className='text text-danger'>{formLogin.errors.password}</p>}
             </div>
+            {formLogin.errors.password && <p className='text text-danger'>{formLogin.errors.password}</p>}
           </div>
           <div className="form-group mt-2">
             <button className="btn text-register">Register now?</button>
@@ -98,8 +98,5 @@ const LoginPageStyled = styled.div`
     border-radius: 20px;
     padding: 10px 25px;
     color: white;
-  }
-  .container {
-    margin: 3rem 3.5rem;
   }
 `;

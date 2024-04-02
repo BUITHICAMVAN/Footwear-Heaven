@@ -1,6 +1,6 @@
 import axios from "axios";
 import { history } from "..";
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 
 export const TOKEN = 'token'
 export const DOMAIN_BACKEND = 'https://shop.cyberlearn.vn/api/'
@@ -41,13 +41,20 @@ http.interceptors.response.use((res) => {
     } else if (statusCode === 401) {
         // kiem tra token het han hay chua
         // neu het han thi goi api refreshToken
+        const token = localStorage.getItem(TOKEN);
 
-        const decodedToken = jwtDecode(localStorage.getItem(TOKEN)) // Lay token va decode
-        const date = new Date(decodedToken.exp + 1000)
-        console.log(date)
-        if (date < Date.now()) { // neu time cua token nhỏ hơn hiện tại => hết hạn
-            // Goi api refresh tokem 
-            console.log('goi api refresh token')
+        if (token) {
+            try {
+                // Decode token
+                const decodedToken = jwtDecode(token);
+                // Kiểm tra thời gian hết hạn của token
+                if (decodedToken.exp * 1000 < Date.now()) {
+                    // Nếu token hết hạn, gửi yêu cầu refresh token
+                    console.log('Gọi API refresh token');
+                }
+            } catch (error) {
+                console.log('Lỗi khi giải mã token:', error);
+            }
         }
         // khong co token
         alert('Đăng nhập để vào trang này')

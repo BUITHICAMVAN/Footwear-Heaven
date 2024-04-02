@@ -27,7 +27,6 @@ const RegisterPage = () => {
     phone: yup.string().matches(/^[0-9]{10}$/, 'Phone number must be 10 digits'),
     onSubmit: async (userRegister) => {
       const registerResult = await dispatch(userRegisterAsync(userRegister))
-      // console.log(registerResult)
       if (registerResult.success) {
         navigate('/login')
       } else {
@@ -63,18 +62,18 @@ const RegisterPage = () => {
             <div className="input-group d-flex align-items-center">
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="form-control mx-3"
+                className="form-control"
                 id="password"
                 name="password"
                 value={formLogin.values.password}
                 onChange={formLogin.handleChange}
                 onBlur={formLogin.handleBlur}
               />
-              <label className="password-toggle-btn" onClick={togglePasswordVisibility}>
+              <label className="password-toggle-btn px-3" onClick={togglePasswordVisibility}>
                 {showPassword ? <i className="fa-regular fa-eye"></i> : <i className="fa-regular fa-eye-slash"></i>}
               </label>
-              {formLogin.errors.password && <p className='text text-danger'>{formLogin.errors.password}</p>}
             </div>
+            {formLogin.errors.password && <p className='text text-danger'>{formLogin.errors.password}</p>}
           </div>
           {/* <div className="form-group">
             <p>Password Confirm</p>
@@ -103,9 +102,8 @@ const RegisterPage = () => {
                   type="radio"
                   name="gender"
                   id="female"
-                  value="female" 
-                  defaultChecked   
-                  onChange={formLogin.handleChange}  
+                  value="female"
+                  onChange={formLogin.handleChange}
                 />
                 <label className="form-check-label" htmlFor="female">
                   Female
@@ -117,8 +115,8 @@ const RegisterPage = () => {
                   type="radio"
                   name="gender"
                   id="male"
-                  value="male"  
-                  onChange={formLogin.handleChange}  
+                  value="male"
+                  onChange={formLogin.handleChange}
                 />
                 <label className="form-check-label" htmlFor="male">
                   Male
