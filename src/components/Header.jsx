@@ -1,13 +1,12 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-
-
 const Header = () => {
     const navigate = useNavigate()
+
     // Authentication functions
     const isAuthenticated = () => {
-        return localStorage.getItem('token') !== null;
+        return (localStorage.getItem('token') && localStorage.getItem('user_login')) !== null;
     };
 
     const logout = () => {

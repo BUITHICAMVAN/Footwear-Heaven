@@ -3,12 +3,16 @@ import shoeReducer from "./reducers/shoeReducer";
 import loginReducer from "./reducers/loginReducer";
 import registerReducer from "./reducers/registerReducer";
 import userReducer from "./reducers/userReducer";
+import productReducer from "./reducers/productReducer";
+import productCartReducer from "./reducers/productCart";
 
 export const store = configureStore({
     reducer: {
         shoeReducer: shoeReducer,
         loginReducer: loginReducer,
         registerReducer: registerReducer,
-        userReducer: userReducer
+        userReducer: userReducer,
+        // productReducer: productReducer,
+        // productCartReducer: productCartReducer,
     }
 })
