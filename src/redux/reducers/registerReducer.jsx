@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { http } from '../../utils/configure';
 
 const initialState = {
-    userRegister: ''
+    userRegister: {}
 }
 
 const registerReducer = createSlice({
