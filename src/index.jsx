@@ -1,25 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 // import './index.css';
-import "./assets/css/main.css";
-import {
-  Routes,
-  Route,
-  unstable_HistoryRouter as HistoryRouter,
-} from "react-router-dom";
-import { createBrowserHistory } from "history";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
-import HomeTemplate from "./templates/HomeTemplate";
-import { ResponsiveItem } from "./templates/ResponsiveItem";
-import HomePage from "./pages/home/HomePage";
-import HomeResponsivePage from "./pages/home/HomeResponsivePage";
-import LoginPage from "./pages/login/LoginPage";
-import RegisterPage from "./pages/register/RegisterPage";
-import ProfilePage from "./pages/profile/ProfilePage";
-import Details from "./pages/details/Details";
-import Cart from "./pages/cart/Cart";
-import SearchPage from "./pages/search/SearchPage";
+import './assets/css/main.css'
+import { Routes, Route, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
+import { createBrowserHistory } from 'history';
+import { Provider } from 'react-redux';
+import { store } from './redux/store'
+import HomeTemplate from './templates/HomeTemplate';
+import { ResponsiveItem } from './templates/ResponsiveItem';
+import HomePage from './pages/home/HomePage';
+import HomeResponsivePage from './pages/home/HomeResponsivePage';
+import LoginPage from './pages/login/LoginPage';
+import RegisterPage from './pages/register/RegisterPage';
+import ProfilePage from './pages/profile/ProfilePage';
+import Details from './pages/details/Details';
+import Cart from './pages/cart/Cart';
+import PurchasePage from './pages/purchase/PurchasePage';
 
 export const history = createBrowserHistory();
 
@@ -49,6 +45,7 @@ root.render(
             {/* <Route path=":keyword" element={<SearchPage />}></Route> */}
           </Route>
           {/* /product?keyword=${searchTerm} */}
+          <Route path='purchase' element={<PurchasePage/>}></Route>
         </Route>
       </Routes>
     </Provider>

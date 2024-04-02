@@ -37,8 +37,6 @@ export const ResponsiveItem = (props) => {
         }
     }, [screenWidth])
 
-    console.log(component)
-
     return (
         <>
             {component}

@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteItemCart } from "../../redux/reducers/productCart";
+import { NavLink } from "react-router-dom";
+
 
 const Cart = () => {
   const { arrProductCart } = useSelector((state) => state.productCartReducer);
@@ -64,7 +66,9 @@ const Cart = () => {
         Tổng tiền : {renderTotalALL()}
       </h3>
       <div className="text-right" style={{ width: 200, marginLeft: "auto" }}>
-        <button className="btn btn-success">Thanh Toán</button>
+        <button className="btn btn-success">
+          <NavLink to="/purchase">Thanh toán</NavLink>
+        </button>
       </div>
     </div>
   );

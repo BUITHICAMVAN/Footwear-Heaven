@@ -10,7 +10,7 @@ const HomePage = () => {
     <div className="container-fluid">
       <Carousel arrProduct={arrProduct} />
       <div className="container">
-        <h3 className="text-center">Product Feature</h3>
+        <h3 className="text-left custom-title">Product Feature</h3>
         <div className="row">
           {arrProduct.map((prod) => {
             return (
