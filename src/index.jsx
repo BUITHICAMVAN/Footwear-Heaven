@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+// import './index.css';
+import './assets/css/main.css'
 import { Routes, Route, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
@@ -12,6 +13,8 @@ import HomeResponsivePage from './pages/home/HomeResponsivePage';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
 import ProfilePage from './pages/profile/ProfilePage';
+import Details from './pages/details/Details';
+import Cart from './pages/cart/Cart';
 
 export const history = createBrowserHistory()
 
@@ -25,6 +28,10 @@ root.render(
           <Route path="login" element={<LoginPage/>}></Route>
           <Route path="register" element={<RegisterPage/>}></Route>
           <Route path='profile' element={<ProfilePage/>}></Route>
+          <Route path='detail'>
+            <Route path=':id' element={<Details/>}></Route>
+          </Route>
+          <Route path='cart' element={<Cart />}></Route>
         </Route>
       </Routes>
     </Provider>

@@ -12,7 +12,8 @@ export const store = configureStore({
         loginReducer: loginReducer,
         registerReducer: registerReducer,
         userReducer: userReducer,
-        // productReducer: productReducer,
-        // productCartReducer: productCartReducer,
-    }
-})
+        productReducer: productReducer,
+        productCartReducer: productCartReducer,
+      },
+});
+    
