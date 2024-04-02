@@ -26,46 +26,63 @@ const productCartReducer = createSlice({
   name: "productCartReducer",
   initialState,
   reducers: {
-    addToCart: (state,action)=>{
-        const prodCart = { ...action.payload, quantity: 1 };
-        const prodCheck = state.arrProductCart.find(
-          (prod) => prod.id === prodCart.id
-        );
-        if (prodCheck) {
-          prodCheck.quantity += 1;
-        } else {
-          state.arrProductCart.push(prodCart);
-        }
+    addToCart: (state, action) => {
+      const prodCart = { ...action.payload };
+      const prodCheck = state.arrProductCart.find(
+        (prod) => prod.id === prodCart.id
+      );
+      if (prodCheck) {
+        prodCheck.quantity += 1;
+      } else {
+        state.arrProductCart.push(prodCart);
+      }
 
-        // state.arrProductCart= action.payload;
+      // state.arrProductCart= action.payload;
+    },
+    deleteItemCart: (state, action) => {
+      const id = action.payload;
+      state.arrProductCart = state.arrProductCart.filter((p) => p.id !== id);
     },
     changeQuantity: (state, action) => {
-        const { id, quantity } = action.payload;
-        const propdCheck = state.arrProductCart.find((prod) => prod.id === id);
-        if (propdCheck) {
-          propdCheck.quantity += quantity;
-          if (propdCheck.quantity < 1) {
-            if (window.confirm("bạn có muốn xóa ? ")) {
-              state.arrProductCart = state.arrProductCart.filter(
-                (p) => p.id !== id
-              );
-            } else {
-              propdCheck.quantity += 1;
-            }
+      const { id, quantity } = action.payload;
+      const productToChange = state.arrProductCart.find(
+        (prod) => prod.id === id
+      );
+      if (productToChange) {
+        productToChange.quantity += quantity;
+        if (productToChange.quantity <= 0) {
+          if (window.confirm("Bạn có muốn xóa ? ")) {
+            state.arrProductCart = state.arrProductCart.filter(
+              (p) => p.id !== id
+            );
+          } else {
+            productToChange.quantity = 1;
           }
         }
-      },
-      changeQuantityInput: (state, action) => {
-        const { id, value } = action.payload;
-        const prodChangeQuantity = state.arrProductCart.find((p) => p.id === id);
-        if (prodChangeQuantity && value > 0 && value < 100) {
-          prodChangeQuantity.quantity = Number(value);
-        }
-      },
+      }
+      return productToChange;
+    },
+
+    changeQuantityInput: (state, action) => {
+      const { id, value } = action.payload;
+      const productChangeQuantity = state.arrProductCart.find(
+        (p) => p.id === id
+      );
+      if (productChangeQuantity) console.log(productChangeQuantity);
+      if (productChangeQuantity && value > 0 && value <= 300) {
+        productChangeQuantity.quantity = Number(value);
+        console.log(productChangeQuantity);
+      }
+    },
   },
 });
 
-export const {addToCart,changeQuantityInput,changeQuantity} = productCartReducer.actions;
+export const {
+  addToCart,
+  deleteItemCart,
+  changeQuantityInput,
+  changeQuantity,
+} = productCartReducer.actions;
 
 export default productCartReducer.reducer;
 // action

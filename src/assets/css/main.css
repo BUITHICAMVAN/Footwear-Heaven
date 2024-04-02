@@ -34,5 +34,11 @@
 
 .detail__custom {
   margin: auto;
-}/*# sourceMappingURL=main.css.map */
-
+}
+.custom__footer ul {
+  list-style-type: none;
+}
+.custom__footer ul a {
+  color: white;
+  text-decoration: none;
+}

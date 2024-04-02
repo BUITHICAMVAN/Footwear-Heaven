@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 // import './index.css';
 import './assets/css/main.css'
 import { Routes, Route, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
@@ -17,22 +17,34 @@ import Details from './pages/details/Details';
 import Cart from './pages/cart/Cart';
 import PurchasePage from './pages/purchase/PurchasePage';
 
-export const history = createBrowserHistory()
+export const history = createBrowserHistory();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <HistoryRouter history={history}>
     <Provider store={store}>
       <Routes>
-        <Route path='' element={<HomeTemplate />}>
-          <Route element={<ResponsiveItem component={<HomePage />} mobileComponent={<HomeResponsivePage />} />} index></Route>
-          <Route path="login" element={<LoginPage/>}></Route>
-          <Route path="register" element={<RegisterPage/>}></Route>
-          <Route path='profile' element={<ProfilePage/>}></Route>
-          <Route path='detail'>
-            <Route path=':id' element={<Details/>}></Route>
+        <Route path="" element={<HomeTemplate />}>
+          <Route
+            element={
+              <ResponsiveItem
+                component={<HomePage />}
+                mobileComponent={<HomeResponsivePage />}
+              />
+            }
+            index
+          ></Route>
+          <Route path="login" element={<LoginPage />}></Route>
+          <Route path="register" element={<RegisterPage />}></Route>
+          <Route path="profile" element={<ProfilePage />}></Route>
+          <Route path="detail">
+            <Route path=":id" element={<Details />}></Route>
           </Route>
-          <Route path='cart' element={<Cart />}></Route>
+          <Route path="cart" element={<Cart />}></Route>
+          <Route path="Product" element={<SearchPage />}>
+            {/* <Route path=":keyword" element={<SearchPage />}></Route> */}
+          </Route>
+          {/* /product?keyword=${searchTerm} */}
           <Route path='purchase' element={<PurchasePage/>}></Route>
         </Route>
       </Routes>
