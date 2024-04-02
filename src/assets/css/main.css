@@ -5,6 +5,13 @@
   color: white;
 }
 
+.custom-title {
+  background: linear-gradient(180deg, #F21299 0%, #1B02B5 100%);
+  color: white;
+  width: 500px;
+  padding: 1rem;
+}
+
 #carouselExampleIndicators {
   width: 100%;
 }
@@ -28,3 +35,4 @@
 .detail__custom {
   margin: auto;
 }/*# sourceMappingURL=main.css.map */
+

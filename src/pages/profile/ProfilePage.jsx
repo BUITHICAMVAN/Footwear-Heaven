@@ -3,48 +3,63 @@ import * as yup from 'yup';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { authenticateLoginAsync } from '../../redux/reducers/loginReducer';
 import avatar from '../../assets/avatar.jpg'
 import OrderHistory from '../../components/orderHistory/OrderHistory';
 import Favourite from '../../components/favourite/Favourite';
-import { getUserProfileAsync } from '../../redux/reducers/userReducer';
+import { getUserProfileAsync, updateUserProfileAsync } from '../../redux/reducers/userReducer';
 
 const ProfilePage = () => {
     const [showPassword, setShowPassword] = useState(false)
-    const infoUser = useSelector(state => state.userReducer)
+    const { infoUser } = useSelector(state => state.userReducer)
     const dispatch = useDispatch()
 
-    const formLogin = useFormik({
+    useEffect(() => {
+        dispatch(getUserProfileAsync());
+    }, [dispatch]);
+
+    const formUpdate = useFormik({
         initialValues: {
             email: '',
-            password: ''
+            password: '',
+            name: '',
+            gender: '',
+            phone: '',
         },
         validationSchema: yup.object().shape({
-            password: yup.string().required('Password cannot be blank').max(32, 'Reach maximum'),
-            phone: yup.string().matches(/^[0-9]{10}$/, 'Phone number must be 10 digits'),
+            password: yup.string().required('Password cannot be blank').max(32, 'Reached maximum characters'),
+            phone: yup.string()
+                .matches(/^[0-9]*$/, 'Phone number must contain only digits')
+                .min(10, 'Phone number must be 10 digits')
+                .max(10, 'Phone number must be 10 digits')
         }),
-        onSubmit: async (userLogin) => {
-            const loginResult = await dispatch(authenticateLoginAsync(userLogin))
-            if (loginResult.success) {
-                alert(loginResult.message)
+        onSubmit: async (updatedProfile) => {
+            const updateResult = await dispatch(updateUserProfileAsync(updatedProfile))
+            if (updateResult.success) {
+                alert(updateResult.message)
             } else {
-                alert(loginResult.message)
+                alert(updateResult.message)
             }
         }
-    });
-
-    const getUserProfile = async () => {
-        const actionThunk = getUserProfileAsync()
-        dispatch(actionThunk)
-    }
+    })
 
     useEffect(() => {
-        getUserProfile()
-    }, [])
+        // Update form values when infoUser changes
+        if (infoUser && !formUpdate.values.email) {
+            const initialValues = {
+                email: infoUser.email || '',
+                password: infoUser.password || '',
+                name: infoUser.name || '',
+                gender: infoUser.gender || '',
+                phone: infoUser.phone || '',
+            };
+            formUpdate.setValues(initialValues);
+        }
+    }, [infoUser, formUpdate.values.email]);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
-    };
+    }
+
     return (
         <ProfilePageStyled>
             <div className="container-fluid">
@@ -53,21 +68,20 @@ const ProfilePage = () => {
                     <div className="profile-img align-items-center">
                         <img src={avatar} alt="Avatar" />
                     </div>
-
                     <div className="profile-content">
-                        <form className="profile-form" onSubmit={formLogin.handleSubmit}>
+                        <form className="profile-form" onSubmit={formUpdate.handleSubmit}>
                             <div className="form-group">
                                 <p>Email</p>
-                                <input type="text" className="form-control" id="email" name="email" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} value={infoUser.email} disabled /> 
+                                <input type="text" className="form-control" id="email" name="email" onChange={formUpdate.handleChange} onBlur={formUpdate.handleBlur} value={formUpdate.values.email} disabled />
                             </div>
                             <div className="form-group">
                                 <p>Name</p>
-                                <input type="text" className="form-control" id="name" name="name" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} value={infoUser.name}/>
+                                <input type="text" className="form-control" id="name" name="name" onChange={formUpdate.handleChange} onBlur={formUpdate.handleBlur} value={formUpdate.values.name} />
                             </div>
                             <div className="form-group">
                                 <p>Phone</p>
-                                <input type="text" className="form-control" id="phone" name="phone" onChange={formLogin.handleChange} onBlur={formLogin.handleBlur} value={infoUser.phone}/> 
-                                {formLogin.errors.phone && <p className='text text-danger'>{formLogin.errors.phone}</p>}
+                                <input type="text" className="form-control" id="phone" name="phone" onChange={formUpdate.handleChange} onBlur={formUpdate.handleBlur} value={formUpdate.values.phone} />
+                                {formUpdate.errors.phone && <p className='text text-danger'>{formUpdate.errors.phone}</p>}
                             </div>
                             <div className="form-group">
                                 <p>Password</p>
@@ -77,31 +91,47 @@ const ProfilePage = () => {
                                         className="form-control"
                                         id="password"
                                         name="password"
-                                        value={infoUser.password}
-                                        onChange={formLogin.handleChange}
-                                        onBlur={formLogin.handleBlur}
+                                        onChange={formUpdate.handleChange}
+                                        onBlur={formUpdate.handleBlur}
+                                        value={formUpdate.values.password}
                                     />
                                     <label className="password-toggle-btn" onClick={togglePasswordVisibility}>
                                         {showPassword ? <i className="fa-regular fa-eye"></i> : <i className="fa-regular fa-eye-slash"></i>}
                                     </label>
-                                    {formLogin.errors.password && <p className='text text-danger'>{formLogin.errors.password}</p>}
                                 </div>
+                                {formUpdate.errors.password && <p className='text text-danger'>{formUpdate.errors.password}</p>}
                             </div>
                             <div className="form-group">
-                                <div>
-                                    <p>Gender</p>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="gender" id="femail" />
-                                        <label className="form-check-label" htmlFor="femail">
-                                            Female
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="gender" id="male" />
-                                        <label className="form-check-label" htmlFor="male">
-                                            Male
-                                        </label>
-                                    </div>
+                                <p>Gender</p>
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="gender"
+                                        id="female"
+                                        value="female"
+                                        onChange={() => formUpdate.setFieldValue('gender', true)}
+                                        onBlur={formUpdate.handleBlur}
+                                        checked={formUpdate.values.gender === true}
+                                    />
+                                    <label className="form-check-label" htmlFor="female">
+                                        Female
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="gender"
+                                        id="male"
+                                        value="male"
+                                        onChange={() => formUpdate.setFieldValue('gender', false)}
+                                        onBlur={formUpdate.handleBlur}
+                                        checked={formUpdate.values.gender === false}
+                                    />
+                                    <label className="form-check-label" htmlFor="male">
+                                        Male
+                                    </label>
                                 </div>
                             </div>
                             <div className="form-group mt-2">
