@@ -22,6 +22,7 @@ http.interceptors.request.use((config) => {
     }
     return config
 }, error => {
+    console.error('Request interceptor error:', error);
     return Promise.reject(error)
 })
 

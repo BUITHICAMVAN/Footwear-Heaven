@@ -9,27 +9,41 @@ const userReducer = createSlice({
     name: 'userReducer',
     initialState,
     reducers: {
-        setUserProfileAsyncAction: (state, action) => {
+        setGetUserProfileAsyncAction: (state, action) => {
             state.infoUser = action.payload
+        },
+        setUpdateUserProfileAsyncAction: (state, action) => {
+            state.infoUser = { ...state.infoUser, ...action.payload };
         }
     }
 });
 
-export const { setUserProfileAsyncAction } = userReducer.actions
+export const { setGetUserProfileAsyncAction, setUpdateUserProfileAsyncAction } = userReducer.actions
 
 export default userReducer.reducer
 
 export const getUserProfileAsync = () => {
     return async (dispatch) => {
         try {
-            // featch userList from API
-            const res = await http.get("Users/getProfile")
-            console.log(res)
-            const action = setUserProfileAsyncAction(res.data.content)
-            console.log(action)
-            dispatch(action)
+            // Fetch user profile from API
+            const res = await http.post("Users/getProfile");
+            const action = setGetUserProfileAsyncAction(res.data.content);
+            dispatch(action);
         } catch (error) {
             console.error('Error fetching user profile:', error);
         }
     }
 }
+
+export const updateUserProfileAsync = (updatedProfile) => {
+    return async (dispatch) => {
+        try {
+            const res = await http.post("Users/updateProfile", updatedProfile);
+            console.log(res.data.content);
+            const action = setUpdateUserProfileAsyncAction(updatedProfile);
+            dispatch(action);
+        } catch (error) {
+            console.error('Error updating user profile:', error);
+        }
+    };
+};

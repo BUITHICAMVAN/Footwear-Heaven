@@ -64,21 +64,6 @@ const Details = () => {
                   dispatch(action);
                 }}
               />
-              {/* <input
-                className=""
-                min={1}
-                max={100}
-                value={productDetail.quantity}
-                style={{ width: 70, textAlign: "center" }}
-                onInput={(event) => {
-                  const { value } = event.target.value;
-                  const action = changeQuantityInput({
-                    id: productDetail.id,
-                    value,
-                  });
-                  dispatch(action);
-                }}
-              /> */}
               <button>+</button>
             </div>
             <button className="btn btn-dark"
@@ -86,7 +71,7 @@ const Details = () => {
                 const action =addToCart(productDetail)
                 dispatch(action)
             }}>
-              <i className="fa fa-cart-plus"></i> Add to cart
+              <i className="fa fa-cart-plus "></i> Add to cart
             </button>
           </div>
           <div className="row mt-2">

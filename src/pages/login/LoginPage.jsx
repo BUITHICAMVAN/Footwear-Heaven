@@ -24,7 +24,6 @@ const LoginPage = () => {
     }),
     onSubmit: async (userLogin) => {
       const loginResult = await dispatch(authenticateLoginAsync(userLogin))
-      console.log(loginResult)
       if (loginResult.success) {
         navigate('/profile')
       } else {
