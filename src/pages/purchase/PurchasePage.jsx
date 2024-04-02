@@ -9,7 +9,8 @@ const PurchasePage = () => {
     }
     const navigate = useNavigate()
 
-    const userReducer = useSelector(state => state.userReducer)
+    const orderHistory = useSelector(state => state.orderHistoryReducer)
+
 
     const handleLoginRedirect = () => {
         navigate("/login")
@@ -35,8 +36,9 @@ const PurchasePage = () => {
                             </tr>
                         </tbody>
                     </table>
+
                 </div>
-            </PurchasePageStyled>
+            </PurchasePageStyled >
         ) : (
             handleLoginRedirect()
         )
@@ -46,5 +48,6 @@ const PurchasePage = () => {
 export default PurchasePage
 
 const PurchasePageStyled = styled.div`
+
 
 `

@@ -5,7 +5,7 @@ const initialState = {
   orderDetail: []
 }
 
-const userOrderReducer = createSlice({
+const orderHistoryReducer = createSlice({
   name: 'userOrderReducer',
   initialState,
   reducers: {
@@ -15,9 +15,9 @@ const userOrderReducer = createSlice({
   }
 });
 
-export const { setOrderAsyncAction } = userOrderReducer.actions
+export const { setOrderAsyncAction } = orderHistoryReducer.actions
 
-export default userOrderReducer.reducer
+export default orderHistoryReducer.reducer
 
 
 export const saveOrderHistoryUserProfileAsync = (orderHistory) => {

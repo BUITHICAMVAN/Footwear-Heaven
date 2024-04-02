@@ -4,7 +4,7 @@ import registerReducer from "./reducers/registerReducer";
 import userReducer from "./reducers/userReducer";
 import productReducer from "./reducers/productReducer";
 import productCartReducer from "./reducers/productCart";
-import userOrderReducer from "./reducers/userOrderReducer";
+import orderHistoryReducer from "./reducers/orderHistoryReducer";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
         userReducer: userReducer,
         productReducer: productReducer,
         productCartReducer: productCartReducer,
-        userOrderReducer: userOrderReducer
+        orderHistoryReducer: orderHistoryReducer
       },
 });
     
