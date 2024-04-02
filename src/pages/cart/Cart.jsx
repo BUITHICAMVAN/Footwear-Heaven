@@ -1,11 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItemCart } from "../../redux/reducers/productCart";
 
 const Cart = () => {
   const { arrProductCart } = useSelector((state) => state.productCartReducer);
-  const renderTotal = (prod) => {
+   const renderTotal = (prod) => {
     return prod.price * prod.quantity;
   };
+  const dispatch = useDispatch();
   const renderTotalALL = () => {
     return arrProductCart
       .reduce((total, prod) => {
@@ -45,8 +47,8 @@ const Cart = () => {
                   <button
                     className="btn btn-success"
                     onClick={() => {
-                      // const action = deleteItemCart(prodCart.id);
-                      // this.props.dispatch(action);
+                      const action = deleteItemCart(prod.id);
+                      dispatch(action);
                     }}
                   >
                     <i className="fa fa-trash"></i>

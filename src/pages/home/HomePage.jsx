@@ -19,13 +19,19 @@ const HomePage = () => {
                   <img src={prod.image} alt="..." />
                   <div className="card-body">
                     <h3>{prod.name}</h3>
-                    <p>{prod.price}</p>
-                    <NavLink
-                      to={`/detail/${prod.id}`}
-                      className={"btn btn-dark"}
-                    >
-                      View detail
-                    </NavLink>
+                    <div className="row">
+                      <div className="col-4">
+                        <NavLink
+                          to={`/detail/${prod.id}`}
+                          className={"btn btn-dark"}
+                        >
+                          View detail
+                        </NavLink>
+                      </div>
+                      <div className="col-8">
+                        <h3>{prod.price} $</h3>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

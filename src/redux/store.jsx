@@ -4,6 +4,7 @@ import loginReducer from "./reducers/loginReducer";
 import registerReducer from "./reducers/registerReducer";
 import productReducer from "./reducers/productReducer";
 import productCartReducer from "./reducers/productCart";
+import productSearching from "./reducers/searchingReducer";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     registerReducer: registerReducer,
     productReducer: productReducer,
     productCartReducer: productCartReducer,
+    productSearching: productSearching,
   },
 });

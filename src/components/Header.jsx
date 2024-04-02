@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Search from "../pages/search/Search";
 const Header = () => {
-  const { product } = useSelector((state) => state.productReducer);
-  if (product) console.log(product);
+  const { arrProductCart } = useSelector((state) => state.productCartReducer);
+  if (arrProductCart) console.log(arrProductCart);
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-custom-navbar">
       <div className="container">
@@ -77,34 +78,22 @@ const Header = () => {
             </li>
           </ul>
 
-          <form className="d-flex my-2 my-lg-0">
-            <input
-              className="form-control me-sm-2"
-              type="text"
-              placeholder="Search"
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
+      
+          <Search />
           <NavLink
             to="/cart"
             className="btn btn-outline-success my-2 my-sm-0"
             type="submit"
           >
             <i className="fa fa-cart-plus"></i> (
-            {/* {this.props.stateCart.reduce((total, prod) => {
+            {arrProductCart?.reduce((total, prod) => {
               return (total += prod.quantity);
-            }, 0)} */}
+            }, 0)}
             )
           </NavLink>
         </div>
       </div>
     </nav>
-
   );
 };
 

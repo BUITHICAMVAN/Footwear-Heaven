@@ -56,3 +56,11 @@ export const getApiActionProductDetailAsync = (id) => {
     dispatch(action);
   };
 };
+// export const getApiActionProductSearchingAsync = (keyword) => {
+//   return async (dispatch) => {
+//     const res = await http.get(`/Product?keyword=${keyword}`);
+//     // const res = await http.get(`${keyword}`);
+//     const action = setProductActionDetail(res.data.content);
+//     dispatch(action);
+//   };
+// };

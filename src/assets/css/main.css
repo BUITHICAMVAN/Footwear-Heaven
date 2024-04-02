@@ -27,4 +27,12 @@
 
 .detail__custom {
   margin: auto;
+}
+
+.custom__footer ul {
+  list-style-type: none;
+}
+.custom__footer ul a {
+  color: white;
+  text-decoration: none;
 }/*# sourceMappingURL=main.css.map */
