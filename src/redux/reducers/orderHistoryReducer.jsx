@@ -2,11 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import { http } from '../../utils/configure';
 
 const initialState = {
+  orderHistory: {},
   orderDetail: []
 }
 
 const orderHistoryReducer = createSlice({
-  name: 'userOrderReducer',
+  name: 'orderHistoryReducer',
   initialState,
   reducers: {
     setOrderAsyncAction: (state, action) => {

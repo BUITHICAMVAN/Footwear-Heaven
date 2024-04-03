@@ -4,19 +4,24 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components'
 
 const PurchasePage = () => {
-    const isAuthenticated = () => {
-        return (localStorage.getItem('token') && localStorage.getItem('user_login')) !== null;
-    }
-    const navigate = useNavigate()
 
+    const navigate = useNavigate();
     const orderHistory = useSelector(state => state.orderHistoryReducer)
 
+    // check if authenticated
+    const isAuthenticated = () => {
+        // if token and user_login exists => return true
+        return (localStorage.getItem('token') && localStorage.getItem('user_login')) !== null;
+    };
 
+    // if not, navigate to login page 
     const handleLoginRedirect = () => {
         navigate("/login")
-    }
+    };
+    
     return (
-        isAuthenticated() ? (
+        // if authenticated, return UI
+        (isAuthenticated() ? (
             <PurchasePageStyled>
                 <div className="container order-history">
                     <h3>Thank you for your order!</h3>
@@ -40,9 +45,9 @@ const PurchasePage = () => {
                 </div>
             </PurchasePageStyled >
         ) : (
-            handleLoginRedirect()
+            handleLoginRedirect() 
         )
-    )
+        ))
 }
 
 export default PurchasePage

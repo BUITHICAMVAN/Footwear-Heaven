@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { http } from "../../utils/configure";
 const initialState = {
   arrProductCart: [
     {

@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { http } from '../../utils/configure';
 
 const initialState = {
-    infoUser: {}
+    infoUser: {},
+    orderHistory: []
 }
 
 const userReducer = createSlice({
@@ -14,11 +15,14 @@ const userReducer = createSlice({
         },
         setUpdateUserProfileAsyncAction: (state, action) => {
             state.infoUser = { ...state.infoUser, ...action.payload };
+        },
+        setOrderHistoryFromUserAsync : (state, action) => {
+            state.orderHistory = action.payload
         }
     }
 });
 
-export const { setGetUserProfileAsyncAction, setUpdateUserProfileAsyncAction } = userReducer.actions
+export const { setGetUserProfileAsyncAction, setUpdateUserProfileAsyncAction, setOrderHistoryFromUserAsync } = userReducer.actions
 
 export default userReducer.reducer
 
@@ -45,5 +49,17 @@ export const updateUserProfileAsync = (updatedProfile) => {
         } catch (error) {
             console.error('Error updating user profile:', error);
         }
-    };
-};
+    }
+}
+
+export const getOrderHistoryFromUserAsync = () => {
+    return async (dispatch) => {
+        try {
+            const res = await http.post("Users/getProfile")
+            const action = setOrderHistoryFromUserAsync(res.data.content.orderHistory);
+            dispatch(action)
+        } catch (error) {
+            console.error('Error getting order history from profile:', error);
+        }
+    }
+}

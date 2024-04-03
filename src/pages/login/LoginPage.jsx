@@ -3,7 +3,6 @@ import * as yup from 'yup';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 import { authenticateLoginAsync } from '../../redux/reducers/loginReducer';
 import { useDispatch } from 'react-redux';
 

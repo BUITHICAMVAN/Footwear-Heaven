@@ -5,7 +5,6 @@ import Search from "../pages/search/Search";
 
 const Header = () => {
   const { arrProductCart } = useSelector((state) => state.productCartReducer);
-  if (arrProductCart) console.log(arrProductCart);
 
   const navigate = useNavigate()
 
