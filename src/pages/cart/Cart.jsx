@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteItemCart } from "../../redux/reducers/productCart";
 import { NavLink } from "react-router-dom";
 
-
 const Cart = () => {
   const { arrProductCart } = useSelector((state) => state.productCartReducer);
-   const renderTotal = (prod) => {
+  const renderTotal = (prod) => {
     return prod.price * prod.quantity;
   };
   const dispatch = useDispatch();
@@ -67,7 +66,12 @@ const Cart = () => {
       </h3>
       <div className="text-right" style={{ width: 200, marginLeft: "auto" }}>
         <button className="btn btn-success">
-          <NavLink to="/purchase">Thanh toán</NavLink>
+          <NavLink
+            to="/purchase"
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Thanh toán
+          </NavLink>
         </button>
       </div>
     </div>
