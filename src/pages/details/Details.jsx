@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getApiActionProductDetailAsync } from "../../redux/reducers/productReducer";
 import { NavLink, useParams } from "react-router-dom";
-import {
-  addToCart,
-  changeQuantity,
-  changeQuantityInput,
-} from "../../redux/reducers/productCart";
+import { addToCart } from "../../redux/reducers/productCart";
 
 const Details = () => {
   const { productDetail } = useSelector((state) => state.productReducer);
-  const { arrProductCart } = useSelector((state) => state.productCartReducer);
+  // const { arrProductCart } = useSelector((state) => state.productCartReducer);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
@@ -28,7 +24,13 @@ const Details = () => {
       getApiProductDetail();
     }
   }, [params.id, productDetail]);
-
+  const handleAddToCart = () => {
+    let newProductDetail = {};
+    newProductDetail = { ...productDetail };
+    newProductDetail.quantity = quantity;
+    const action = addToCart(newProductDetail);
+    dispatch(action);
+  };
   return (
     <div className="container">
       {loading && <p>Loading...</p>}
@@ -45,11 +47,8 @@ const Details = () => {
             <div>
               <button
                 onClick={() => {
-                  const action = changeQuantity({
-                    id: productDetail.id,
-                    quantity: -1,
-                  });
-                  dispatch(action);
+                  const value = Math.max(quantity - 1, 1);
+                  setQuantity(value);
                 }}
               >
                 -
@@ -57,16 +56,11 @@ const Details = () => {
               <input
                 className="m-1"
                 style={{ width: 70, textAlign: "center" }}
-                value={productDetail.quantity}
-                onChange={(event) => {
+                value={quantity}
+                onInput={(event) => {
                   let value = event.target.value;
-                  setQuantity(value); // Cập nhật giá trị quantity
                   value = Math.min(parseInt(value), 300);
-                  const action = changeQuantityInput({
-                    id: productDetail.id,
-                    value: value,
-                  });
-                  dispatch(action);
+                  setQuantity(value);
                 }}
                 onKeyPress={(event) => {
                   const charCode = event.key;
@@ -82,11 +76,8 @@ const Details = () => {
               />
               <button
                 onClick={() => {
-                  const action = changeQuantity({
-                    id: productDetail.id,
-                    quantity: 1,
-                  });
-                  dispatch(action);
+                  const value = Math.max(quantity + 1, 1);
+                  setQuantity(value);
                 }}
               >
                 +
@@ -95,8 +86,7 @@ const Details = () => {
             <button
               className="btn btn-dark"
               onClick={() => {
-                const action = addToCart(productDetail);
-                dispatch(action);
+                handleAddToCart();
               }}
             >
               <i className="fa fa-cart-plus"></i> Add to cart
